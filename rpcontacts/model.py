@@ -3,7 +3,7 @@
 """This module provides a model to manage the contacts table."""
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtSql import QSqlTableModel
+from PyQt5.QtSql import QSqlTableModel, QSqlRelationalTableModel, QSqlRelation
 
 
 class ContactsModel:
@@ -13,7 +13,7 @@ class ContactsModel:
     @staticmethod
     def _createModel():
         """Create and set up the model."""
-        tableModel = QSqlTableModel()
+        tableModel = QSqlRelationalTableModel()
         tableModel.setTable("contacts")
         tableModel.setEditStrategy(QSqlTableModel.OnFieldChange)
         tableModel.select()
@@ -26,8 +26,8 @@ class ContactsModel:
         """Add a contact to the database."""
         rows = self.model.rowCount()
         self.model.insertRows(rows, 1)
-        for column_index, field in enumerate(data):
-            self.model.setData(self.model.index(rows, column_index + 1), field)
+        for column, field in enumerate(data):
+            self.model.setData(self.model.index(rows, column + 1), field)
         self.model.submitAll()
         self.model.select()
 
