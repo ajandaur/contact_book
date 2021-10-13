@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# contact_book/database.py
 
 """This module provides a database connection."""
 
@@ -34,5 +33,6 @@ def createConnection(databaseName):
             f"Database Error: {connection.lastError().text()}",
         )
         return False
+
     _createContactsTable()
     return True
